@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit House MVP</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">Habit House</div>
+        <div id="topbarStatus" class="topbar-status"></div>
+      </header>
+
+      <main id="screenRoot">
+        <section id="screenWelcome" class="screen">
+          <div class="card hero">
+            <h1>一起盖房子养成习惯</h1>
+            <p>完成就加砖；断了也不清零；3人小队互相拉一把</p>
+            <div class="actions">
+              <button id="btnLogin" class="primary">手机号/邮箱登录</button>
+              <button id="btnLoginAlt" class="ghost">Apple/Google 登录</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="screenTeam" class="screen hidden">
+          <div class="card">
+            <h2>创建/加入小圈子</h2>
+            <div class="grid two">
+              <div class="card inner">
+                <h3>创建我的 3 人小队</h3>
+                <button id="btnCreateTeam" class="primary">生成邀请码</button>
+                <div id="teamCodeCreated" class="muted"></div>
+              </div>
+              <div class="card inner">
+                <h3>加入朋友的小队</h3>
+                <label for="inviteCode">邀请码（6 位）</label>
+                <input id="inviteCode" maxlength="6" placeholder="例如 3F8K2A" />
+                <button id="btnJoinTeam" class="primary">加入</button>
+                <div id="teamJoinResult" class="muted"></div>
+              </div>
+            </div>
+            <button id="btnSkipTeam" class="ghost">先跳过</button>
+          </div>
+        </section>
+
+        <section id="screenMain" class="screen hidden">
+          <div id="bannerJoinTeam" class="banner hidden">
+            加入小队更容易坚持。去设置页创建/加入。
+          </div>
+
+          <section id="tabHome" class="tab">
+            <div class="card">
+              <div class="row space">
+                <div>
+                  <div class="label">当前习惯</div>
+                  <button id="btnEditHabit" class="link">未命名习惯</button>
+                </div>
+                <div class="right">
+                  <div class="label">今日</div>
+                  <div id="todayMeta" class="meta"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card house-card">
+              <div class="row space">
+                <div>
+                  <div class="label">已建</div>
+                  <div id="bricksCount" class="big">0 / 30</div>
+                </div>
+                <div class="right">
+                  <div class="label">本周停工</div>
+                  <div id="weeklyStop" class="big">0 天</div>
+                </div>
+              </div>
+              <div id="houseGrid" class="house-grid"></div>
+              <div id="slowdownHint" class="hint hidden">
+                系统已把你的明日目标降到⭐，先恢复节奏
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="label">今日行动</div>
+              <div class="grid four">
+                <button data-action="star1" class="primary">⭐ 最低完成</button>
+                <button data-action="star2" class="primary">⭐⭐ 标准完成</button>
+                <button data-action="star3" class="primary">⭐⭐⭐ 超额完成</button>
+                <button data-action="stop" class="danger">今天停工</button>
+              </div>
+              <div class="row space">
+                <div id="todayFeedback" class="muted"></div>
+                <button id="btnUndo" class="ghost hidden">撤销重选（仅一次）</button>
+              </div>
+            </div>
+          </section>
+
+          <section id="tabCircle" class="tab hidden">
+            <div class="card">
+              <h2>我们的三人小队</h2>
+              <div id="circleMembers" class="grid three"></div>
+              <div class="label">一句话提醒（每天限 1 条）</div>
+              <div id="reminderArea" class="grid three"></div>
+            </div>
+          </section>
+
+          <section id="tabReview" class="tab hidden">
+            <div class="card">
+              <h2>今日复盘</h2>
+              <div class="label">今天最主要的阻碍是？</div>
+              <div id="reviewOptions" class="grid five"></div>
+              <div class="row space">
+                <div id="reviewStatus" class="muted"></div>
+                <button id="btnSkipReview" class="ghost">跳过</button>
+              </div>
+            </div>
+            <div class="card">
+              <h2>本周停工原因</h2>
+              <div id="weeklyTop" class="big">暂无</div>
+            </div>
+          </section>
+
+          <section id="tabSettings" class="tab hidden">
+            <div class="card">
+              <h2>我的习惯</h2>
+              <label for="habitName">习惯名称</label>
+              <input id="habitName" placeholder="例如 早起/跑步/控糖" />
+              <div class="label">难度定义</div>
+              <div class="grid three">
+                <input id="level1" placeholder="⭐ 10分钟" />
+                <input id="level2" placeholder="⭐⭐ 2km" />
+                <input id="level3" placeholder="⭐⭐⭐ 5km" />
+              </div>
+              <div class="row space">
+                <button id="btnPauseHabit" class="ghost">暂停习惯</button>
+                <button id="btnRebuildHouse" class="danger">重建新房子</button>
+              </div>
+            </div>
+            <div class="card">
+              <h2>我的小队</h2>
+              <div id="teamInfo" class="muted"></div>
+              <button id="btnCopyInvite" class="ghost">复制邀请码</button>
+              <button id="btnLeaveTeam" class="danger">退出小队</button>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <nav id="tabBar" class="tabbar hidden">
+        <button data-tab="home" class="tab-btn active">首页</button>
+        <button data-tab="circle" class="tab-btn">圈子</button>
+        <button data-tab="review" class="tab-btn">复盘</button>
+        <button data-tab="settings" class="tab-btn">设置</button>
+      </nav>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <h3>今天最难的是？</h3>
+        <div id="modalOptions" class="grid five"></div>
+        <button id="btnModalSkip" class="ghost">跳过</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
