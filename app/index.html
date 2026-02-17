@@ -4,9 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit House MVP</title>
-    <link rel="stylesheet" href="styles.css?v=20260217e" />
+    <link rel="stylesheet" href="styles.css?v=20260217f" />
   </head>
   <body>
+    <div
+      id="bootMarker"
+      style="position: fixed; top: 8px; right: 8px; padding: 6px 10px; background: #111; color: #fff; font-size: 12px; border-radius: 6px; z-index: 9999;"
+    >
+      boot: html
+    </div>
     <div id="app">
       <header class="topbar">
         <div class="brand">Habit House</div>
@@ -206,6 +212,11 @@
     <div id="toast" class="toast hidden"></div>
 
     <script>
+      console.log("[boot] inline script ran");
+      var marker = document.getElementById("bootMarker");
+      if (marker) {
+        marker.textContent = "boot: inline ok";
+      }
       window.hhHandleClick = function (action) {
         if (window.hhActions && typeof window.hhActions[action] === "function") {
           window.hhActions[action]();
@@ -214,6 +225,6 @@
         }
       };
     </script>
-    <script src="app.js?v=20260217e"></script>
+    <script src="app.js?v=20260217f"></script>
   </body>
 </html>
