@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit House MVP</title>
-    <link rel="stylesheet" href="styles.css?v=20260217d" />
+    <link rel="stylesheet" href="styles.css?v=20260217e" />
   </head>
   <body>
     <div id="app">
@@ -19,8 +19,20 @@
             <h1>一起盖房子养成习惯</h1>
             <p>完成就加砖；断了也不清零；3人小队互相拉一把</p>
             <div class="actions">
-              <button id="btnLogin" class="primary">手机号/邮箱登录</button>
-              <button id="btnLoginAlt" class="ghost">Apple/Google 登录</button>
+              <button
+                id="btnLogin"
+                class="primary"
+                onclick="window.hhHandleClick('loginEmail')"
+              >
+                手机号/邮箱登录
+              </button>
+              <button
+                id="btnLoginAlt"
+                class="ghost"
+                onclick="window.hhHandleClick('loginAlt')"
+              >
+                Apple/Google 登录
+              </button>
             </div>
           </div>
         </section>
@@ -42,7 +54,13 @@
                 <div id="teamJoinResult" class="muted"></div>
               </div>
             </div>
-            <button id="btnSkipTeam" class="ghost">先跳过</button>
+            <button
+              id="btnSkipTeam"
+              class="ghost"
+              onclick="window.hhHandleClick('skipTeam')"
+            >
+              先跳过
+            </button>
           </div>
         </section>
 
@@ -187,6 +205,15 @@
 
     <div id="toast" class="toast hidden"></div>
 
-    <script src="app.js?v=20260217d"></script>
+    <script>
+      window.hhHandleClick = function (action) {
+        if (window.hhActions && typeof window.hhActions[action] === "function") {
+          window.hhActions[action]();
+        } else {
+          alert("已点击：" + action);
+        }
+      };
+    </script>
+    <script src="app.js?v=20260217e"></script>
   </body>
 </html>

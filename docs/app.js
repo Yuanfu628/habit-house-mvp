@@ -10,10 +10,14 @@ const el = (id) => document.getElementById(id);
 
 const state = loadState();
 normalizeState();
+console.log("[boot] app.js loaded");
 bindEvents();
 renderAll();
 handleHashChange();
 window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("error", (event) => {
+  console.error("[runtime] error", event.error || event.message);
+});
 
 function loadState() {
   const raw = localStorage.getItem(STORAGE_KEY);
@@ -115,16 +119,11 @@ function archiveDaily() {
 function bindEvents() {
   el("btnLogin").addEventListener("click", () => {
     console.log("[login] email/phone button clicked");
-    state.loggedIn = true;
-    saveState();
-    openAuthModal();
+    handleLoginEmail();
   });
   el("btnLoginAlt").addEventListener("click", () => {
     console.log("[login] apple/google button clicked");
-    state.loggedIn = true;
-    saveState();
-    location.hash = "#oauth";
-    showToast("即将支持 Apple/Google 登录");
+    handleLoginAlt();
   });
 
   el("btnCreateTeam").addEventListener("click", () => {
@@ -153,10 +152,7 @@ function bindEvents() {
 
   el("btnSkipTeam").addEventListener("click", () => {
     console.log("[team] skip clicked");
-    state.team.joined = false;
-    state.team.skipped = true;
-    saveState();
-    showMain();
+    handleSkipTeam();
   });
 
   el("btnAuthClose").addEventListener("click", closeAuthModal);
@@ -718,3 +714,31 @@ function handleHashChange() {
     renderSettings();
   }
 }
+
+function handleLoginEmail() {
+  state.loggedIn = true;
+  saveState();
+  openAuthModal();
+}
+
+function handleLoginAlt() {
+  state.loggedIn = true;
+  saveState();
+  location.hash = "#oauth";
+  showToast("即将支持 Apple/Google 登录");
+}
+
+function handleSkipTeam() {
+  state.team.joined = false;
+  state.team.skipped = true;
+  saveState();
+  showToast("已跳过");
+  location.hash = "#home";
+  showMain();
+}
+
+window.hhActions = {
+  loginEmail: handleLoginEmail,
+  loginAlt: handleLoginAlt,
+  skipTeam: handleSkipTeam,
+};
