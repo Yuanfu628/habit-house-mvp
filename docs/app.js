@@ -211,6 +211,16 @@ function bindEvents() {
     renderReview();
   });
 
+  el("modalOptions").addEventListener("click", (event) => {
+    const reviewButton = event.target.closest("[data-review]");
+    if (reviewButton) {
+      state.daily.review = reviewButton.dataset.review;
+      closeModal();
+      saveState();
+      renderReview();
+    }
+  });
+
   el("modal").addEventListener("click", (event) => {
     const reviewButton = event.target.closest("[data-review]");
     if (reviewButton) {
