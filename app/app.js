@@ -10,7 +10,7 @@ const el = (id) => document.getElementById(id);
 
 const state = loadState();
 normalizeState();
-console.log("[boot] app.js loaded");
+debugLog("app.js loaded");
 bindEvents();
 renderAll();
 handleHashChange();
@@ -118,11 +118,11 @@ function archiveDaily() {
 
 function bindEvents() {
   el("btnLogin").addEventListener("click", () => {
-    console.log("[login] email/phone button clicked");
+    debugLog("login email clicked");
     handleLoginEmail();
   });
   el("btnLoginAlt").addEventListener("click", () => {
-    console.log("[login] apple/google button clicked");
+    debugLog("login alt clicked");
     handleLoginAlt();
   });
 
@@ -151,13 +151,13 @@ function bindEvents() {
   });
 
   el("btnSkipTeam").addEventListener("click", () => {
-    console.log("[team] skip clicked");
+    debugLog("skip team clicked");
     handleSkipTeam();
   });
 
   el("btnAuthClose").addEventListener("click", closeAuthModal);
   el("btnAuthSubmit").addEventListener("click", () => {
-    console.log("[auth] submit clicked");
+    debugLog("auth submit clicked");
     showToast("TODO: Auth");
   });
   el("authModal").addEventListener("click", (event) => {
@@ -218,7 +218,7 @@ function bindEvents() {
   });
 
   el("btnModalSkip").addEventListener("click", () => {
-    console.log("[review] modal skip clicked");
+    debugLog("review modal skip clicked");
     state.daily.reviewSkipped = true;
     closeModal();
     saveState();
@@ -377,7 +377,7 @@ function handleAction(action) {
     el("todayFeedback").textContent = "今天已选择状态，可撤销后重选。";
     return;
   }
-  console.log("[home] action clicked:", action);
+  debugLog(`home action: ${action}`);
   let delta = 0;
   let status = action;
   if (action === "star1") delta = 1;
@@ -695,7 +695,7 @@ function copyToClipboard(text) {
 function handleHashChange() {
   const hash = window.location.hash.replace("#", "");
   if (!hash) return;
-  console.log("[route] hash:", hash);
+  debugLog(`route hash: ${hash}`);
   if (hash === "oauth") {
     showToast("即将支持 Apple/Google 登录");
     return;
@@ -712,6 +712,13 @@ function handleHashChange() {
     renderCircle();
     renderReview();
     renderSettings();
+  }
+}
+
+function debugLog(message) {
+  console.log("[debug]", message);
+  if (window.hhDebug) {
+    window.hhDebug(message);
   }
 }
 

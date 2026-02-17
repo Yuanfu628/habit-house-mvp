@@ -309,3 +309,15 @@ input {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   z-index: 20;
 }
+
+.debug-panel {
+  position: fixed;
+  left: 8px;
+  top: 8px;
+  padding: 6px 10px;
+  background: #fff4cc;
+  color: #654200;
+  border-radius: 6px;
+  font-size: 12px;
+  z-index: 9999;
+}

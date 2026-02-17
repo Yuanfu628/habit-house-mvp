@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit House MVP</title>
-    <link rel="stylesheet" href="styles.css?v=20260217f" />
+    <link rel="stylesheet" href="styles.css?v=20260217g" />
   </head>
   <body>
     <div
@@ -13,6 +13,7 @@
     >
       boot: html
     </div>
+    <div id="debugPanel" class="debug-panel">debug: waiting</div>
     <div id="app">
       <header class="topbar">
         <div class="brand">Habit House</div>
@@ -217,14 +218,23 @@
       if (marker) {
         marker.textContent = "boot: inline ok";
       }
+      window.hhDebug = function (message) {
+        var panel = document.getElementById("debugPanel");
+        if (panel) {
+          panel.textContent = "debug: " + message;
+        }
+      };
       window.hhHandleClick = function (action) {
         if (window.hhActions && typeof window.hhActions[action] === "function") {
           window.hhActions[action]();
         } else {
           alert("已点击：" + action);
         }
+        if (window.hhDebug) {
+          window.hhDebug("clicked " + action);
+        }
       };
     </script>
-    <script src="app.js?v=20260217f"></script>
+    <script src="app.js?v=20260217g"></script>
   </body>
 </html>
