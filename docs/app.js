@@ -89,6 +89,7 @@ function normalizeState() {
       { id: "me", name: "我" },
       { id: "mate1", name: "队友A" },
       { id: "mate2", name: "队友B" },
+      { id: "mate3", name: "队友C" },
     ];
   }
 }
@@ -209,12 +210,21 @@ function bindEvents() {
     saveState();
     renderReview();
   });
+
+  el("modal").addEventListener("click", (event) => {
+    if (event.target.id === "modal") {
+      closeModal();
+    }
+  });
 }
 
 function showScreen(screen) {
   ["screenWelcome", "screenTeam", "screenMain"].forEach((id) =>
     el(id).classList.add("hidden")
   );
+  if (screen !== "main") {
+    closeModal();
+  }
   if (screen === "welcome") {
     el("screenWelcome").classList.remove("hidden");
   }
