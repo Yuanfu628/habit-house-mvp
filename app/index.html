@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit House MVP</title>
-    <link rel="stylesheet" href="styles.css?v=20260217c" />
+    <link rel="stylesheet" href="styles.css?v=20260217d" />
   </head>
   <body>
     <div id="app">
@@ -170,6 +170,23 @@
       </div>
     </div>
 
-    <script src="app.js?v=20260217c"></script>
+    <div id="authModal" class="modal hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>登录 / 注册</h3>
+          <button id="btnAuthClose" class="ghost modal-close">关闭</button>
+        </div>
+        <label for="authEmail">Email</label>
+        <input id="authEmail" type="email" placeholder="you@example.com" />
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" placeholder="至少 6 位" />
+        <button id="btnAuthSubmit" class="primary">登录 / 注册</button>
+        <div class="muted">当前为占位流程，不会真的登录</div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="app.js?v=20260217d"></script>
   </body>
 </html>

@@ -12,6 +12,8 @@ const state = loadState();
 normalizeState();
 bindEvents();
 renderAll();
+handleHashChange();
+window.addEventListener("hashchange", handleHashChange);
 
 function loadState() {
   const raw = localStorage.getItem(STORAGE_KEY);
@@ -112,14 +114,17 @@ function archiveDaily() {
 
 function bindEvents() {
   el("btnLogin").addEventListener("click", () => {
+    console.log("[login] email/phone button clicked");
     state.loggedIn = true;
     saveState();
-    showScreen("team");
+    openAuthModal();
   });
   el("btnLoginAlt").addEventListener("click", () => {
+    console.log("[login] apple/google button clicked");
     state.loggedIn = true;
     saveState();
-    showScreen("team");
+    location.hash = "#oauth";
+    showToast("即将支持 Apple/Google 登录");
   });
 
   el("btnCreateTeam").addEventListener("click", () => {
@@ -147,10 +152,22 @@ function bindEvents() {
   });
 
   el("btnSkipTeam").addEventListener("click", () => {
+    console.log("[team] skip clicked");
     state.team.joined = false;
     state.team.skipped = true;
     saveState();
     showMain();
+  });
+
+  el("btnAuthClose").addEventListener("click", closeAuthModal);
+  el("btnAuthSubmit").addEventListener("click", () => {
+    console.log("[auth] submit clicked");
+    showToast("TODO: Auth");
+  });
+  el("authModal").addEventListener("click", (event) => {
+    if (event.target.id === "authModal") {
+      closeAuthModal();
+    }
   });
 
   el("btnUndo").addEventListener("click", undoSelection);
@@ -205,6 +222,7 @@ function bindEvents() {
   });
 
   el("btnModalSkip").addEventListener("click", () => {
+    console.log("[review] modal skip clicked");
     state.daily.reviewSkipped = true;
     closeModal();
     saveState();
@@ -363,6 +381,7 @@ function handleAction(action) {
     el("todayFeedback").textContent = "今天已选择状态，可撤销后重选。";
     return;
   }
+  console.log("[home] action clicked:", action);
   let delta = 0;
   let status = action;
   if (action === "star1") delta = 1;
@@ -545,6 +564,21 @@ function closeModal() {
   el("modal").classList.add("hidden");
 }
 
+function openAuthModal() {
+  el("authModal").classList.remove("hidden");
+}
+
+function closeAuthModal() {
+  el("authModal").classList.add("hidden");
+}
+
+function showToast(message) {
+  const toast = el("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  setTimeout(() => toast.classList.add("hidden"), 2000);
+}
+
 function togglePauseHabit() {
   state.habit.paused = !state.habit.paused;
   saveState();
@@ -660,4 +694,27 @@ function copyToClipboard(text) {
     return;
   }
   navigator.clipboard.writeText(text);
+}
+
+function handleHashChange() {
+  const hash = window.location.hash.replace("#", "");
+  if (!hash) return;
+  console.log("[route] hash:", hash);
+  if (hash === "oauth") {
+    showToast("即将支持 Apple/Google 登录");
+    return;
+  }
+  if (["home", "circle", "review", "settings"].includes(hash)) {
+    state.loggedIn = true;
+    if (!state.team.joined) {
+      state.team.skipped = true;
+    }
+    saveState();
+    showMain();
+    switchTab(hash);
+    renderHome();
+    renderCircle();
+    renderReview();
+    renderSettings();
+  }
 }
