@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #f5f6f8;
+  color: #1c1e21;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e6e8eb;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.topbar-status {
+  font-size: 14px;
+  color: #5f6368;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.screen {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 18px;
+}
+
+.card.hero {
+  text-align: center;
+}
+
+.card.inner {
+  padding: 16px;
+  background: #f8f9fb;
+  box-shadow: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 10px;
+}
+
+p {
+  margin: 0 0 16px;
+  color: #5f6368;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #1a73e8;
+  color: #ffffff;
+}
+
+button.danger {
+  background: #f44336;
+  color: #ffffff;
+}
+
+button.ghost {
+  background: #f1f3f4;
+  color: #1c1e21;
+}
+
+button.link {
+  background: transparent;
+  color: #1a73e8;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.row.space {
+  justify-content: space-between;
+}
+
+.right {
+  text-align: right;
+}
+
+.label {
+  font-size: 12px;
+  color: #889096;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.meta {
+  font-weight: 600;
+}
+
+.big {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.hint {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f0f7ff;
+  color: #1a73e8;
+  font-size: 14px;
+}
+
+.banner {
+  padding: 10px 14px;
+  background: #fff7e6;
+  color: #7a5600;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.house-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.house-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.brick {
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 6px;
+  background: #e7eaee;
+  position: relative;
+}
+
+.brick.filled {
+  background: #1a73e8;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.grid.two {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.grid.three {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.grid.four {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.grid.five {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+input {
+  width: 100%;
+  border: 1px solid #e0e3e7;
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.tabbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #e6e8eb;
+  background: #ffffff;
+}
+
+.tabbar .tab-btn {
+  padding: 12px 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.tabbar .tab-btn.active {
+  color: #1a73e8;
+  font-weight: 700;
+}
+
+.member-card {
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #f1f3f4;
+}
+
+.status-done {
+  background: #e6f4ea;
+  color: #1e8e3e;
+}
+
+.status-stop {
+  background: #fff7e6;
+  color: #b26a00;
+}
+
+.status-none {
+  background: #f1f3f4;
+  color: #5f6368;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  width: min(420px, 100%);
+}
