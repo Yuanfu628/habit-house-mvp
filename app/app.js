@@ -212,6 +212,14 @@ function bindEvents() {
   });
 
   el("modal").addEventListener("click", (event) => {
+    const reviewButton = event.target.closest("[data-review]");
+    if (reviewButton) {
+      state.daily.review = reviewButton.dataset.review;
+      closeModal();
+      saveState();
+      renderReview();
+      return;
+    }
     if (event.target.id === "modal") {
       closeModal();
     }
@@ -508,12 +516,7 @@ function openModal() {
     const btn = document.createElement("button");
     btn.className = "ghost";
     btn.textContent = option;
-    btn.addEventListener("click", () => {
-      state.daily.review = option;
-      closeModal();
-      saveState();
-      renderReview();
-    });
+    btn.dataset.review = option;
     options.appendChild(btn);
   });
   modal.classList.remove("hidden");
