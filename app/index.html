@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit House MVP</title>
-    <link rel="stylesheet" href="styles.css?v=20260217b" />
+    <link rel="stylesheet" href="styles.css?v=20260217c" />
   </head>
   <body>
     <div id="app">
@@ -160,10 +160,16 @@
       <div class="modal-card">
         <h3>今天最难的是？</h3>
         <div id="modalOptions" class="grid five"></div>
-        <button id="btnModalSkip" class="ghost">跳过</button>
+        <button
+          id="btnModalSkip"
+          class="ghost"
+          onclick="document.getElementById('modal').classList.add('hidden')"
+        >
+          跳过
+        </button>
       </div>
     </div>
 
-    <script src="app.js?v=20260217b"></script>
+    <script src="app.js?v=20260217c"></script>
   </body>
 </html>

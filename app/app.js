@@ -264,11 +264,13 @@ function renderAll() {
   if (!state.loggedIn) {
     showScreen("welcome");
     el("tabBar").classList.add("hidden");
+    closeModal();
     return;
   }
   if (!state.team.joined && !state.team.code && !state.team.skipped) {
     showScreen("team");
     el("tabBar").classList.add("hidden");
+    closeModal();
     return;
   }
   showMain();
@@ -276,6 +278,7 @@ function renderAll() {
   renderCircle();
   renderReview();
   renderSettings();
+  closeModal();
 }
 
 function switchTab(tab) {
