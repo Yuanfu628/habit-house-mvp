@@ -527,6 +527,12 @@ function openModal() {
     btn.className = "ghost";
     btn.textContent = option;
     btn.dataset.review = option;
+    btn.addEventListener("click", () => {
+      state.daily.review = option;
+      closeModal();
+      saveState();
+      renderReview();
+    });
     options.appendChild(btn);
   });
   modal.classList.remove("hidden");
